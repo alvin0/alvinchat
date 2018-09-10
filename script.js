@@ -8,7 +8,6 @@ var config = {
 };
 firebase.initializeApp(config);
 var database = firebase.database();
-var firebase = firebase;
 var vueapp = new Vue({
   el: '#app',
   data: {
@@ -18,17 +17,20 @@ var vueapp = new Vue({
    	messageInput : '',
    	dbFirebaseMessage :[],
    	dbFirebaseRoomMessage :[],
+    testchange:[],
    	status:false,
   },
 	firebase: {
-    dbFirebaseMessage : database.ref('chats').child('all'),
+    dbFirebaseMessage : database.ref('chats/all'),
+    testchange : database.ref('chats'),
     dbFirebaseRoomMessage : database.ref('chats')
   },
   updated:function(){
 		this.scrollToEnd();
   },
   watch:{
-  	dbFirebaseMessage:function(){
+  	testchange:function(){
+      this.fetchDataRoom()
   	}
   },
   filters: {
@@ -70,6 +72,7 @@ var vueapp = new Vue({
     },
     changeRoom:function(id){
     	this.chat_room = id;
+      this.$firebaseRefs.dbFirebaseMessage = database.ref('chats/'+this.chat_room);
     	this.fetchDataRoom()
     },
     createNewRoom:function(){
