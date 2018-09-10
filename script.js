@@ -65,13 +65,13 @@ var vueapp = new Vue({
 		}
     },
     startChat:function(){
-    	if(this.user_name != '' && this.messageInput.length > 5 && this.messageInput.length <= 255)
+    	if(this.user_name != '' && this.user_name.length > 5 && this.user_name.length <= 255)
     	{
     		this.status = true;
     	}else
       {
         alert('User name is between 5 and 255 characters long');
-        this.messageInput='';
+        this.user_name='';
       }
     },
     fetchDataRoom:function(){
