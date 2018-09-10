@@ -40,16 +40,22 @@ var vueapp = new Vue({
 	},
   methods:{
   	pushMessageChat : function(){
-  		database.ref('chats/'+this.chat_room).push(
-  			{
-  				user_name:this.user_name,
-  				message:this.messageInput,
-  				created_at: firebase.database.ServerValue.TIMESTAMP
-  			}
-		);
-		this.messageInput='';
-    	this.fetchDataRoom()
-		this.scrollToEnd();
+      if(this.messageInput.length > 5 && this.messageInput.length <= 255)
+      {
+    		  database.ref('chats/'+this.chat_room).push({
+    				user_name:this.user_name,
+    				message:this.messageInput,
+    				created_at: firebase.database.ServerValue.TIMESTAMP
+    			});
+    		this.messageInput='';
+        this.fetchDataRoom()
+    		this.scrollToEnd();
+        }
+      else
+      {
+        alert('Content is between 5 and 255 characters long');
+        this.messageInput='';
+      }
   	},
 	scrollToEnd: function () {
 		if(this.status)
@@ -59,10 +65,14 @@ var vueapp = new Vue({
 		}
     },
     startChat:function(){
-    	if(this.user_name != '')
+    	if(this.user_name != '' && this.messageInput.length > 5 && this.messageInput.length <= 255)
     	{
     		this.status = true;
-    	}
+    	}else
+      {
+        alert('User name is between 5 and 255 characters long');
+        this.messageInput='';
+      }
     },
     fetchDataRoom:function(){
     	var $this = this;
