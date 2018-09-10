@@ -11,7 +11,7 @@ var database = firebase.database();
 var vueapp = new Vue({
   el: '#app',
   data: {
-  	chat_room :'all',
+  	chat_room :'All',
   	new_room:'',
   	user_name :'',
    	messageInput : '',
@@ -21,7 +21,7 @@ var vueapp = new Vue({
    	status:false,
   },
 	firebase: {
-    dbFirebaseMessage : database.ref('chats/all'),
+    dbFirebaseMessage : database.ref('chats/All'),
     testchange : database.ref('chats'),
     dbFirebaseRoomMessage : database.ref('chats')
   },
